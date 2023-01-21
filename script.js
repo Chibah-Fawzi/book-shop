@@ -35,6 +35,46 @@ function Login() {
   }
 }
 
+function Register() {
+  // Récupérer les données des inputs register
+  var userEmail = document.getElementById("registerEmail").value;
+  var userPassword = document.getElementById("registerPassword").value;
+  var userNom = document.getElementById("registerNom").value;
+
+  const newUser = { nom: userNom, email: userEmail, password: userPassword };
+
+  users.push(newUser);
+
+  // On store la valeur de users dans le localstorage
+  localStorage.setItem("users", userNom);
+
+  // On récupére la valeur users du localstorage
+
+  const localuser = localStorage.getItem("users");
+
+  // On check si le lien entre les inputs et la function marche
+  console.log(userEmail, userPassword);
+
+  // On récupére une div pour afficher si il y'as une erreur dans le register
+  var errorDiv = document.getElementById("error");
+
+  // On récupére la div qui regroupe le button register et register dans la nav
+  var navBtns = document.getElementById("btn-container");
+
+  //  On loop sur la liste des users
+  for (var i = 0; i < users.length; i++) {
+    // on check si l'email & le mot de passe écrit par le user existe dans la liste de users
+
+    if (userEmail !== users[i].email) {
+      // Si l'email éxistent on affiche le nom du user à la place des buttons login et register
+      navBtns.innerHTML = `<h3>Bienvenue ${localuser}</h3>`;
+    } else {
+      // Si l'email et le pwd éxistent on affiche une erreur dans la div avec l'id error
+      errorDiv.innerHTML = '<p class="text-danger">Email already exists!</p>';
+    }
+  }
+}
+
 var books = [
   {
     title: "L'étranger",
